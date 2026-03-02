@@ -18,7 +18,7 @@ def cajero_automatico():
 
         option = int(input("seleccione una opcion: "))
 
-        if option == "1":
+        if option == 1:
            monto = 100 
            if saldo >= monto:
               saldo -= monto
@@ -29,7 +29,7 @@ def cajero_automatico():
               print("fondos insuficientes. ")
 
 
-        elif option == "2":
+        elif option == 2:
             try:
                 monto = float(input("ingrese monto retirar:" ))
                 if monto <= 0:
@@ -38,18 +38,18 @@ def cajero_automatico():
                     print("fondos insuficientes. ")
                 else:
                     saldo -= monto
-                    movimientos.append(f"retiro: -${monto}")
+                    movimientos.append(f"retiro: ${monto}")
                     print(f"retiro exitoso. Nuevo saldo ${saldo}")
             except ValueError:
                 print("ingrese un numeor valido. ")
 
                                
 
-        elif option == "3":
+        elif option == 3:
             print(f"saldo actual: ${saldo}")
 
 
-        elif option == "4":
+        elif option == 4:
             try:
                 cuenta_destino = int(input("ingrese numero cuenta de destino"))
                 monto = float(input("ingrese monto a transferir: "))
@@ -62,7 +62,7 @@ def cajero_automatico():
             except ValueError:
                 print("ingrese un numero valido. ")
                         
-
+cajero_automatico()
 
 
 
