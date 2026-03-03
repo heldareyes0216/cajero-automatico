@@ -64,12 +64,9 @@ def cajero_automatico():
 
                 
                         
-<<<<<<< HEAD
-
-=======
                         
 cajero_automatico()
->>>>>>> 9d1d2e0 (funciones agregadas)
+
 
 
 
