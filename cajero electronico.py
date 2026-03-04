@@ -150,6 +150,7 @@ def cajero_automatico():
 
                 for i, movimiento in enumerate(movimientos, start=1):
                     print(f"{i}. {movimiento}")
+                    
  
 
         #otras operaciones            
@@ -164,11 +165,12 @@ def cajero_automatico():
 
             try:
                 sub_option = int(input("Seleccione una opción: "))
+
             except ValueError:
                 print("Ingrese un número válido.") 
                 continue   
 
-            sub_option = int(input("Seleccione una opcion: "))
+            
 
             if sub_option == 0:
                 print("volviendo al menu principal")
@@ -187,7 +189,13 @@ def cajero_automatico():
                             print("Monto invalido.")
 
                         elif monto > saldo:
+                            print("\n==== COMPROBANTE ====")
+                            print("Tipo: Pago servivios")
+                            print(f"Monto: ${monto}")
+                            print(f"Saldo actual: ${saldo}")
+                            print("Estado: RECHAZADO")
                             print("fondos insuficientes.")
+                            print("======================")
 
                         else:
                             saldo_anterior = saldo
@@ -232,8 +240,6 @@ def cajero_automatico():
                             if sub_option == 0:
                                 print("0. volver")
 
-                            else:
-                                print("Opcion invalida.")
 
                     except ValueError:
                         print("ingrese un numero valido.")
