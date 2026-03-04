@@ -2,7 +2,7 @@ def cajero_automatico():
     saldo = 0
     clave = "1234"
     movimientos = []
-    print("==== bienvenidos al cajero ==== ")
+    print("==== Bienvenidos al cajero ==== ")
 
 
     while True:
@@ -11,39 +11,43 @@ def cajero_automatico():
         print("2. retiro ")
         print("3. consulta saldo ")
         print("4. tranferencia" )
-        print("5. gestion de clave")
+        print("5. gestión de clave")
         print("6. consulta movimientos ")
         print("7. otras operaciones ")
         print("0. salir ")
 
-        option = int(input("seleccione una opcion: "))
+        try:
+            option = int(input("seleccione una opción: "))
+        except ValueError:
+            print("Ingrese un número válido.")
+            continue
 
     #deposito  
 
         if option == 1:
 
-        try:
-          monto = float(input("Ingrese monto a depositar: "))
+         try:
+            monto = float(input("Ingrese monto a depositar: "))
 
-        if monto <= 0:
-            print("Monto invalido.")
+            if monto <= 0:
+                print("Monto invalido.")
 
-        else:
-            saldo_anterior = saldo
-            saldo += monto
+            else:
+                saldo_anterior = saldo
+                saldo += monto
 
-            movimientos.append(f"Deposito: +${monto}")
+                movimientos.append(f"Deposito: +${monto}")
 
-            print("\n====== COMPROBANTE ======")
-            print("Tipo: Deposito")
-            print(f"Monto: ${monto}")
-            print(f"Saldo anterior: ${saldo_anterior}")
-            print(f"Saldo actual: ${saldo}")
-            print("Estado: APROBADO")
-            print("=========================")
+                print("\n====== COMPROBANTE ======")
+                print("Tipo: Deposito")
+                print(f"Monto: ${monto}")
+                print(f"Saldo anterior: ${saldo_anterior}")
+                print(f"Saldo actual: ${saldo}")
+                print("Estado: APROBADO")
+                print("=========================")
 
-        except ValueError:
-        print("Ingrese un numero valido.")  
+         except ValueError:
+          print("Ingrese un numero valido.")  
 
         
     #retiro          
@@ -59,7 +63,14 @@ def cajero_automatico():
                 else:
                     saldo -= monto
                     movimientos.append(f"retiro: -${monto}")
-                    print(f"retiro exitoso. Nuevo saldo ${saldo}")
+                    print("\n==== COMPROBANTRE ====")
+                    print("Tipo: retiro")
+                    print(f"Monto: ${monto}")
+                    print(f"Saldo anterior: ${saldo_anterior}")
+                    print(f"saldo actual: ${saldo}")
+                    print("Estado: APROBADO")
+                    print("==========================")
+                    
             except ValueError:
                 print("ingrese un numeor valido. ")
 
@@ -78,13 +89,13 @@ def cajero_automatico():
             else:
                 try:
                  
-                    cuenta_destino = input("ingrese cuenta destino")
+                    cuenta_destino = input("ingrese cuenta destino: ")
 
                     if not cuenta_destino.isdigit():
                         print("numero de cuenta invalido")
 
                     else:
-                        monto = float(input("ingrese monto a transferir"))
+                        monto = float(input("ingrese monto a transferir: "))
 
                         if monto <= 0:
                             print("monto invalido.")
@@ -95,7 +106,13 @@ def cajero_automatico():
                         else:
                             saldo -= monto
                             movimientos.append(f"Transferencia a {cuenta_destino}: -${monto}")
-                            print(f"Transferencia exitosa. Nuevo saldo: ${saldo}")
+                            print("\n==== COMPROBANTE ====")
+                            print("Tipo: transferencia")
+                            print(f"Monto: {monto}")
+                            print(f"Saldo anterior {saldo_anterior}")
+                            print(f"Saldo actual: {saldo}")
+                            print("Estado: APROBADO.")
+                            print("======================")
 
                 except ValueError:
                     print("ingrese un numero valido.")
@@ -145,7 +162,14 @@ def cajero_automatico():
             print("3. pagar tarjeta de credito")
             print("0. volver")
 
+            try:
+                sub_option = int(input("Seleccione una opción: "))
+            except ValueError:
+                print("Ingrese un número válido.") 
+                continue   
+
             sub_option = int(input("Seleccione una opcion: "))
+
             if sub_option == 0:
                 print("volviendo al menu principal")
 
@@ -212,7 +236,16 @@ def cajero_automatico():
                                 print("Opcion invalida.")
 
                     except ValueError:
-                        print("Ingrese un numero valido.")
+                        print("ingrese un numero valido.")
+
+                    
+
+        elif option == 0:
+              print("Gracias por usar el cajero.") 
+              break      
+                            
+
+            
 
                         
 cajero_automatico()   
