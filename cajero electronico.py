@@ -7,7 +7,7 @@ def cajero_automatico():
 
     while True:
         print("\n--- menu pricipal ---")
-        print("1. retiro rapido ")
+        print("1. deposito ")
         print("2. retiro ")
         print("3. consulta saldo ")
         print("4. tranferencia" )
@@ -18,18 +18,38 @@ def cajero_automatico():
 
         option = int(input("seleccione una opcion: "))
 
-        if option == "1":
-           monto = 100 
-           if saldo >= monto:
-              saldo -= monto
-              movimientos.append(f"retiro rapido: -${monto}")
-              print(f"retiro valido exitoso. Nuevo saldo: -${monto}")
+    #deposito  
 
-           else:
-              print("fondos insuficientes. ")
+        if option == 1:
+
+        try:
+          monto = float(input("Ingrese monto a depositar: "))
+
+        if monto <= 0:
+            print("Monto invalido.")
+
+        else:
+            saldo_anterior = saldo
+            saldo += monto
+
+            movimientos.append(f"Deposito: +${monto}")
+
+            print("\n====== COMPROBANTE ======")
+            print("Tipo: Deposito")
+            print(f"Monto: ${monto}")
+            print(f"Saldo anterior: ${saldo_anterior}")
+            print(f"Saldo actual: ${saldo}")
+            print("Estado: APROBADO")
+            print("=========================")
+
+        except ValueError:
+        print("Ingrese un numero valido.")  
+
+        
+    #retiro          
 
 
-        elif option == "2":
+        elif option == 2:
             try:
                 monto = float(input("ingrese monto retirar:" ))
                 if monto <= 0:
@@ -43,29 +63,203 @@ def cajero_automatico():
             except ValueError:
                 print("ingrese un numeor valido. ")
 
-                               
+    #consultar saldo                           
 
-        elif option == "3":
+        elif option == 3:
             print(f"saldo actual: ${saldo}")
 
+    #transferencia           
 
-        elif option == "4":
-            try:
-                cuenta_destino = int(input("ingrese numero cuenta de destino"))
-                monto = float(input("ingrese monto a transferir: "))
-                if monto <= 0:
-                    print("fondos insuficientes. ")
-                else: 
-                    saldo -= monto 
-                    movimientos.append(f"transferencia a {cuenta_destino}: -${monto}")
-                    print(f"transferencia exitosa. Nuevo saldo: ${saldo}")
-            except ValueError:
-                print("ingrese un numero valido. ")
+        elif option == 4:
+            clave_ingresada = input("ingrese su clave: ")
+
+            if clave_ingresada != clave:
+                print("clave incorrecta.")
+            else:
+                try:
+                 
+                    cuenta_destino = input("ingrese cuenta destino")
+
+                    if not cuenta_destino.isdigit():
+                        print("numero de cuenta invalido")
+
+                    else:
+                        monto = float(input("ingrese monto a transferir"))
+
+                        if monto <= 0:
+                            print("monto invalido.")
+
+                        elif monto > saldo: 
+                            print("fondos insuficientes")
+
+                        else:
+                            saldo -= monto
+                            movimientos.append(f"Transferencia a {cuenta_destino}: -${monto}")
+                            print(f"Transferencia exitosa. Nuevo saldo: ${saldo}")
+
+                except ValueError:
+                    print("ingrese un numero valido.")
+
+        #gestion de clave           
+
+        elif option == 5:
+            clave_actual = input("ingrese su clave actual: ")
+
+            if clave_actual != clave:
+                print("clave incorrecta.")
+            else:
+                nueva_clave = input("igrese nueva clave: ") 
+
+                confirmar_clave = input("confirme nueva clave: ")
+
+                if nueva_clave != confirmar_clave:
+                   print("las claves no coinciden")
+
+                elif len(nueva_clave) != 4 or not nueva_clave.isdigit():
+                   print("la clave debe contener 4 digitos.")
+
+                else:
+                   clave = nueva_clave
+                   print("Clave actualizada exitosamente.")
+
+
+        #consultar movimientos      
+
+        elif option == 6:
+            if len(movimientos) == 0:
+                print("No hay movimientos registrados.")
+            else:
+                print("\n==== HISTORIAL DE MOVIMIENTOS ====")
+
+                for i, movimiento in enumerate(movimientos, start=1):
+                    print(f"{i}. {movimiento}")
+ 
+
+        #otras operaciones            
+
+        elif option == 7:
+
+            print("\n---PAGOS---")
+            print("1. pagar luz")
+            print("2. pagar agua")
+            print("3. pagar tarjeta de credito")
+            print("0. volver")
+
+            sub_option = int(input("Seleccione una opcion: "))
+            if sub_option == 0:
+                print("volviendo al menu principal")
+
+            else:
+                clave_ingresada = input("ingrese su clave: ")
+
+                if clave_ingresada != clave:
+                    print("clave incorrecta.")
+
+                else:
+                    try:
+                        monto = float(input("ingrese monto a pagar: ")) 
+
+                        if monto <= 0:
+                            print("Monto invalido.")
+
+                        elif monto > saldo:
+                            print("fondos insuficientes.")
+
+                        else:
+                            saldo_anterior = saldo
+                            saldo -= monto
+
+                            if sub_option == 1:
+                            
+                                movimientos.append(f"pago luz: -${monto}")
+
+                                print("\n====== COMPROBANTE ======")
+                                print("Tipo: Pago Luz")
+                                print(f"Monto: ${monto}")
+                                print(f"Saldo anterior: ${saldo_anterior}")
+                                print(f"Saldo actual: ${saldo}")
+                                print("Estado: APROBADO")
+                                print("=========================")
+
+                            elif sub_option == 2:
+                                
+
+                                movimientos.append(f"pago agua: -${monto}")
+                                print("\n====== COMPROBANTE ======")
+                                print("Tipo: Pago Luz")
+                                print(f"Monto: ${monto}")
+                                print(f"Saldo anterior: ${saldo_anterior}")
+                                print(f"Saldo actual: ${saldo}")
+                                print("Estado: APROBADO")
+                                print("=========================")
+                                
+                            elif sub_option == 3:
+                                
+
+                                movimientos.append(f"pago tarjeta credito. Nuevo saldo: -${saldo}")
+                                print("\n====== COMPROBANTE ======")
+                                print("Tipo: Pago Luz")
+                                print(f"Monto: ${monto}")
+                                print(f"Saldo anterior: ${saldo_anterior}")
+                                print(f"Saldo actual: ${saldo}")
+                                print("Estado: APROBADO")
+                                print("=========================")
+
+                            if sub_option == 0:
+                                print("0. volver")
+
+                            else:
+                                print("Opcion invalida.")
+
+                    except ValueError:
+                        print("Ingrese un numero valido.")
+
+                        
+cajero_automatico()   
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+          
+        
+
+
+
+
+
+
+
+
+  
+    
+
+
+
+
+
+
+     
+
+                      
+
+
+
+
 
                 
                         
                         
-cajero_automatico()
+
 
 
 
