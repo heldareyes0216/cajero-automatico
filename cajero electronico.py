@@ -2,6 +2,10 @@ def cajero_automatico():
     saldo = 0
     clave = "1234"
     movimientos = []
+    from datetime import datetime
+    ahora = datetime.now()
+    fecha_formateada = ahora.strftime("%d/%m/%Y, %H:%M:%S")
+
     print("==== Bienvenidos al cajero ==== ")
 
 
@@ -39,12 +43,14 @@ def cajero_automatico():
                 movimientos.append(f"Deposito: +${monto}")
 
                 print("\n====== COMPROBANTE ======")
+                print("Fecha y hora:", fecha_formateada)
                 print("Tipo: Deposito")
                 print(f"Monto: ${monto}")
                 print(f"Saldo anterior: ${saldo_anterior}")
                 print(f"Saldo actual: ${saldo}")
                 print("Estado: APROBADO")
-                print("=========================")
+                
+
 
          except ValueError:
           print("Ingrese un numero valido.")  
@@ -63,6 +69,7 @@ def cajero_automatico():
                 else:
                     saldo -= monto
                     movimientos.append(f"retiro: -${monto}")
+
                     print("\n==== COMPROBANTRE ====")
                     print("Tipo: retiro")
                     print(f"Monto: ${monto}")
@@ -107,6 +114,7 @@ def cajero_automatico():
                             saldo -= monto
                             movimientos.append(f"Transferencia a {cuenta_destino}: -${monto}")
                             print("\n==== COMPROBANTE ====")
+                            print("Fecha y hora:", fecha_formateada)
                             print("Tipo: transferencia")
                             print(f"Monto: {monto}")
                             print(f"Saldo anterior {saldo_anterior}")
